@@ -26,7 +26,7 @@ def getHexDump(execPath):
     # The command for hexdump to return the list of bytes in the program in C++ byte format
     # the command is hexdump -v -e '"0x" 1/1 "%02X" ","' progName
 
-    p = Popen(["hexdump", "-v", "-e", "\"0x\" 1/1 \"%02x\" \", \"", execPath], stdout=PIPE)
+    p = Popen(["hexdump", "-v", "-e", '"0x" 1/1 "%02x" ","', execPath], stdout=PIPE)
 
     (out, err) = p.communicate()
 
@@ -75,12 +75,14 @@ def generateHeaderFile(execList, fileName):
     # 					........
     # 				};
 
-    for i, progName in execList:
+    i = 0
+    for progName in execList:
         hexdump = getHexDump(progName)
-        progLens[i] = len(hexdump.split(,))
-        headerFile.write("new char[" + progLens[i] + "]{" + hexdump + "}, ")
+        progLens.append(len(hexdump.split(',')))
+        headerFile.write("new char[" + str(progLens[i]) + "]{" + hexdump + "}, ")
+	i+=1
 
-    headerFile.seek(-4, os.SEEK_CURR)
+    #headerFile.seek(-4, os.SEEK_CURR)
     headerFile.write("}\n};")
 
     # Add array to containing program lengths to the header file
