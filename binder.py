@@ -64,7 +64,7 @@ def generateHeaderFile(execList, fileName):
     # Write the array name to the header file
     headerFile.write("#include <string>\n\nusing namespace std;\n\nunsigned char* codeArray[] = {");
 
-    # TODO: for each program progName we should run getHexDump() and get the
+    # DONE: for each program progName we should run getHexDump() and get the
     # the string of bytes formatted according to C++ conventions. That is, each
     # byte of the program will be a two-digit hexadecimal value prefixed with 0x.
     # For example, 0xab. Each such byte should be added to the array codeArray in
@@ -82,6 +82,7 @@ def generateHeaderFile(execList, fileName):
     headerFile.write(hexdump[0])
     for byte in hexdump[1:-1]:
 	headerFile.write(',' + byte)
+	pass
     headerFile.write("}")
 
     for progName in execList[1:]:
@@ -91,24 +92,30 @@ def generateHeaderFile(execList, fileName):
 	headerFile.write(hexdump[0])
 	for byte in hexdump[1:-1]:
 		headerFile.write(',' + byte)
+		pass
 	headerFile.write("}")
 	i += 1
+	pass
 
     headerFile.write("\n};")
-
-    # Add array to containing program lengths to the header file
-    headerFile.write("\n\nunsigned programLengths[] = {")
 
     # The number of programs
     numProgs = len(progNames) - 1
 
-    # TODO: add to the array in the header file the sizes of each program.
+    # Add array to containing program lengths to the header file
+    headerFile.write("\n\nunsigned programLengths[" + str(numProgs) + "] = {")
+
+    
+    # DONE: add to the array in the header file the sizes of each program.
     # That is the first element is the size of program 1, the second element
     # is the size of program 2, etc.
-    for progName in execList:
+    headerFile.write(str(progLens[0]))
+    for progLen in progLens[1:]:
+	headerFile.write(', ' + str(progLen))
         pass
+    headerFile.write('}')
 
-    # TODO: Write the number of programs.
+    # DONE: Write the number of programs.
     headerFile.write("\n\n#define NUM_BINARIES " + str(len(progNames) - 1))
 
     # Close the header file
