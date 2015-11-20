@@ -76,14 +76,25 @@ def generateHeaderFile(execList, fileName):
     # 				};
 
     i = 0
-    for progName in execList:
-        hexdump = getHexDump(progName)
-        progLens.append(len(hexdump.split(',')))
-        headerFile.write("new char[" + str(progLens[i]) + "]{" + hexdump + "}, ")
-	i+=1
+    hexdump = getHexDump(execList[0]).split(',')
+    progLens.append(len(hexdump))
+    headerFile.write("new char[" + str(progLens[i]) + "]{")
+    headerFile.write(hexdump[0])
+    for byte in hexdump[1:-1]:
+	headerFile.write(',' + byte)
+    headerFile.write("}")
 
-    #headerFile.seek(-4, os.SEEK_CURR)
-    headerFile.write("}\n};")
+    for progName in execList[1:]:
+	hexdump = getHexDump(progName).split(',')
+        progLens.append(len(hexdump))
+        headerFile.write(",\nnew char[" + str(progLens[i]) + "]{")
+	headerFile.write(hexdump[0])
+	for byte in hexdump[1:-1]:
+		headerFile.write(',' + byte)
+	headerFile.write("}")
+	i += 1
+
+    headerFile.write("\n};")
 
     # Add array to containing program lengths to the header file
     headerFile.write("\n\nunsigned programLengths[] = {")
