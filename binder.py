@@ -35,7 +35,7 @@ def getHexDump(execPath):
     if returnCode == 0:
         retVal = out
 
-	return retVal
+    return retVal
 
 
 ###################################################################
@@ -46,7 +46,7 @@ def getHexDump(execPath):
 
 def generateHeaderFile(execList, fileName):
 
-	# The header file
+    # The header file
     headerFile = None
 
     # The program array
@@ -81,21 +81,21 @@ def generateHeaderFile(execList, fileName):
     headerFile.write("new char[" + str(progLens[i]) + "]{")
     headerFile.write(hexdump[0])
     for byte in hexdump[1:-1]:
-	headerFile.write(',' + byte)
-	pass
+        headerFile.write(',' + byte)
+        pass
     headerFile.write("}")
 
     for progName in execList[1:]:
-	hexdump = getHexDump(progName).split(',')
+        hexdump = getHexDump(progName).split(',')
         progLens.append(len(hexdump))
         headerFile.write(",\nnew char[" + str(progLens[i]) + "]{")
-	headerFile.write(hexdump[0])
-	for byte in hexdump[1:-1]:
-		headerFile.write(',' + byte)
-		pass
-	headerFile.write("}")
-	i += 1
-	pass
+        headerFile.write(hexdump[0])
+        for byte in hexdump[1:-1]:
+            headerFile.write(',' + byte)
+            pass
+        headerFile.write("}")
+        i += 1
+        pass
 
     headerFile.write("\n};")
 
@@ -105,14 +105,13 @@ def generateHeaderFile(execList, fileName):
     # Add array to containing program lengths to the header file
     headerFile.write("\n\nunsigned programLengths[" + str(numProgs) + "] = {")
 
-    
     # DONE: add to the array in the header file the sizes of each program.
     # That is the first element is the size of program 1, the second element
     # is the size of program 2, etc.
     headerFile.write(str(progLens[0]))
     for progLen in progLens[1:]:
-	headerFile.write(', ' + str(progLen))
-        pass
+        headerFile.write(', ' + str(progLen))
+    pass
     headerFile.write('}')
 
     # DONE: Write the number of programs.
