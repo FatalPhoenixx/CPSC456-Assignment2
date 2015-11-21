@@ -70,18 +70,24 @@ def generateHeaderFile(execList, fileName):
     # For example, 0xab. Each such byte should be added to the array codeArray in
     # the C++ header file. After this loop executes, the header file should contain
     # an array of the following format:
-    # 1. unsigned char* codeArray[] = {new char[<number of bytes in prog1>{prog1byte1, prog1byte2.....},
-    # 				   new char[<number of bytes in prog2><{prog2byte1, progbyte2,....},
+    # 1. unsigned char* codeArray[] = {new char[<number of bytes in prog1>]{prog1byte1, prog1byte2.....},
+    # 				   new char[<number of bytes in prog2>]{prog2byte1, progbyte2,....},
     # 					........
     # 				};
 
+    for i, progName in execList:
+        hexdump = getHexDump(progName)
+        progLens[i] = len(hexdump.split(,))
+        headerFile.write("new char[" + progLens[i] + "]{" + hexdump + "}, ")
 
+    headerFile.seek(-4, os.SEEK_CURR)
+    headerFile.write("}\n};")
 
     # Add array to containing program lengths to the header file
-        headerFile.write("\n\nunsigned programLengths[] = {")
+    headerFile.write("\n\nunsigned programLengths[] = {")
 
-        # The number of programs
-        numProgs = 0
+    # The number of programs
+    numProgs = len(progNames) - 1
 
     # TODO: add to the array in the header file the sizes of each program.
     # That is the first element is the size of program 1, the second element
@@ -89,11 +95,11 @@ def generateHeaderFile(execList, fileName):
     for progName in execList:
         pass
 
-        # TODO: Write the number of programs.
-        headerFile.write("\n\n#define NUM_BINARIES " + str(len(progNames) - 1))
+    # TODO: Write the number of programs.
+    headerFile.write("\n\n#define NUM_BINARIES " + str(len(progNames) - 1))
 
-        # Close the header file
-        headerFile.close()
+    # Close the header file
+    headerFile.close()
 
 
 ############################################################
@@ -113,4 +119,4 @@ def compileFile(binderCppFileName, execName):
     pass
 
 generateHeaderFile(sys.argv[1:], FILE_NAME)
-compileFile("binderbackend.cpp", "bound")
+# compileFile("binderbackend.cpp", "bound")
