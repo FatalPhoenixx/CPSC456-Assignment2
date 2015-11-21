@@ -135,7 +135,16 @@ def compileFile(binderCppFileName, execName):
     # If the compilation succeeds, print "Compilation succeeded"
     # If compilation failed, then print "Compilation failed"
     # Do not forget to add -std=gnu++11 flag to your compilation line
-    pass
+
+    p = Popen(["g++", binderCppFileName, "-o", execName, "-std=gnu++11"], stdout=PIPE)
+    (out, err) = p.communicate()
+    returnCode = p.wait()
+
+    if returnCode == 0:
+        print("Compilation succeeded")
+        pass
+    else:
+        print("Compilation failed")
 
 generateHeaderFile(sys.argv[1:], FILE_NAME)
-# compileFile("binderbackend.cpp", "bound")
+compileFile("binderbackend.cpp", "bound")
