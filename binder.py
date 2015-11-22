@@ -78,7 +78,7 @@ def generateHeaderFile(execList, fileName):
     i = 0
     hexdump = getHexDump(execList[0]).split(',')
     progLens.append(len(hexdump))
-    headerFile.write("new char[" + str(progLens[i]) + "]{")
+    headerFile.write("new unsigned char[" + str(progLens[i]) + "]{")
     headerFile.write(hexdump[0])
     for byte in hexdump[1:-1]:
         headerFile.write(',' + byte)
@@ -88,14 +88,12 @@ def generateHeaderFile(execList, fileName):
     for progName in execList[1:]:
         hexdump = getHexDump(progName).split(',')
         progLens.append(len(hexdump))
-        headerFile.write(",\nnew char[" + str(progLens[i]) + "]{")
+        headerFile.write(",\nnew unsigned char[" + str(progLens[i]) + "]{")
         headerFile.write(hexdump[0])
         for byte in hexdump[1:-1]:
             headerFile.write(',' + byte)
-            pass
         headerFile.write("}")
         i += 1
-        pass
 
     headerFile.write("\n};")
 
@@ -112,7 +110,7 @@ def generateHeaderFile(execList, fileName):
     for progLen in progLens[1:]:
         headerFile.write(', ' + str(progLen))
     pass
-    headerFile.write('}')
+    headerFile.write('};')
 
     # DONE: Write the number of programs.
     headerFile.write("\n\n#define NUM_BINARIES " + str(len(progNames) - 1))
