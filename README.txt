@@ -23,7 +23,7 @@ It changed the file to the contents of the lol.gif that I downloaded from before
 
 Explain what is happening. Do some research in order to find out what the above copy command does. In your explanation be sure to explain the role of each argument in the above command. Also, be sure to explain how Windows handles files which leads to the above behavior.
 
-The copy command is used to copy one or more files known as the source files, and store them into the destination file. The /B argument means it’s in binary mode, placing both files’ bytes into the destination file. Windows handles this behavior by having the copied files stored in the same format they are found in, meaning the copied files can be used just as you would use the original.
+The copy command is used to copy one or more files known as the source files, and store them into the destination file. The /B argument means itâ€™s in binary mode, placing both filesâ€™ bytes into the destination file. Windows handles this behavior by having the copied files stored in the same format they are found in, meaning the copied files can be used just as you would use the original.
 
 
 
@@ -43,4 +43,60 @@ This method is not very robust, as shown from before when copying the files it a
 PART II
 ************
 
-INSTRUCTIONS ***TODO***
+System Requirments: 32-bit Ubuntu 12.04 system with g++ version 4.8 installed
+
+INSTRUCTIONS
+
+The program shall take names of multiple executable files as command line argument and merge these executables into a single executable file called bound. The binder program shall be invoked using python binder.py < PROG 1> <PROG 2>...<PROG N> command line where each PROGi  is an executable program.
+
+For example, to run the program use the following commands 
+
+  python binder.py /usr/bin/ls /usr/bin/pwd
+
+upon sucession the following shall be ouput
+  Compiling..
+  Compilation succeeded
+
+To run all executable files passed in as parameters simply type in the following command
+  ./bound
+  
+The ouput should resemble something like the following example where <Program Output> shall be what the program is suppose to do: 
+  <Program Output 1>
+  Child Complete
+  <Program Output 2> 
+  Child Complete....
+  <Program Output N>
+  Child Complete
+  wait: No child processes
+
+************
+BONUS
+************
+
+System Requirements: Visual Studios 2013, Python 3.6 install along with hexdump library 
+
+WARNING: If C++ programs are compiled through visual studios make sure to compile them in release mode otherwise binder.py won't work. 
+
+INSTRUCTIONS
+
+The program shall take names of multiple executable files as command line argument and merge these executables into a single executable file called bound. The binder program shall be invoked using python binder.py < PROG 1> <PROG 2>...<PROG N> command line where each PROGi  is an executable program.
+
+For example, to run the program use the following commands 
+
+  python binder.py <PROG 1>.exe <PROG 2>.exe
+
+upon sucession the following shall be ouput
+  Compiling..
+  Compilation succeeded
+
+To run all executable files passed in as parameters simply type in the following command
+  c:\bound.exe
+  
+The ouput should resemble something like the following example where <Program Output> shall be what the program is suppose to do: 
+  <Program Output 1>
+  Child Complete
+  <Program Output 2> 
+  Child Complete....
+  <Program Output N>
+  Child Complete
+  wait: No child processes
