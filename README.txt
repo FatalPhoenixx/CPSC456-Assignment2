@@ -73,7 +73,7 @@ The ouput should resemble something like the following example where <Program Ou
 BONUS
 ************
 
-System Requirements: Visual Studios 2013, Python 3.6 install along with hexdump library 
+System Requirements: Visual Studios 2013, Python 3.6 install along with hexdump 3.2 library 
 
 WARNING: If C++ programs are compiled through visual studios make sure to compile them in release mode otherwise binder.py won't work. 
 
@@ -90,7 +90,7 @@ upon sucession the following shall be ouput
   Compilation succeeded
 
 To run all executable files passed in as parameters simply type in the following command
-  c:\bound.exe
+  \bound.exe
   
 The ouput should resemble something like the following example where <Program Output> shall be what the program is suppose to do: 
   <Program Output 1>
